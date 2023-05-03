@@ -11,85 +11,88 @@
 // B -> . al finalizar crear objecto con las propiedades del formulario
 // y almacenarlo local storage
 
-const formulario = document.querySelector('#formulario');
-const nombreInput = document.querySelector('#nombre');
-const apellidoInput = document.querySelector('#apellido');
-const edadInput = document.querySelector('#edad');
-const eventoInput = document.querySelector('#nombreEvento');
-const paisInput = document.querySelector('#pais');
-const cantPersonasInput = document.querySelector('#cantPersonas');
-const enviarBtn = document.querySelector('#enviar');
+const formulario = document.querySelector("#formulario");
+const nombreInput = document.querySelector("#nombre");
+const apellidoInput = document.querySelector("#apellido");
+const edadInput = document.querySelector("#edad");
+const eventoInput = document.querySelector("#nombreEvento");
+const paisInput = document.querySelector("#pais");
+const cantPersonasInput = document.querySelector("#cantPersonas");
+const enviarBtn = document.querySelector("#enviar");
 let cantPers = 0;
 
-enviarBtn.addEventListener('click', (event) => {
-    event.preventDefault()
-    if(validarCampos() == true){
-        alert("El/los campos no pueden estar vacios")
-    }
-    else if (validarEdad() == true){
-        alert("Debe ser mayor de edad")
-    }
-    else if (cantPersonasPorPais() == true){
-        alert(`Solo es posible tener ${cantPers} personas para ${paisInput.value}`)
-    }
-    else{
-        const registroDeEvento = {
-            nombre: nombreInput.value,
-            apellido: apellidoInput.value,
-            edad: edadInput.value,
-            evento: eventoInput.value,
-            pais: paisInput.value,
-            personas: cantPersonasInput.value
-        }
-        let registroDeEventos = JSON.parse(localStorage.getItem('registroDeEventos')) || [];
-        registroDeEventos.push(registroDeEvento);
-        localStorage.setItem('registroDeEventos', JSON.stringify(registroDeEventos))
-        // const nombre = nombreInput.value;
-        // let nombres = JSON.parse(localStorage.getItem('nombres')) || [];
-        // nombres.push(nombre);
-        // localStorage.setItem('nombres', JSON.stringify(nombres));
-        console.log(registroDeEventos)
-    }
-})
-
+enviarBtn.addEventListener("click", (event) => {
+	event.preventDefault();
+	if (validarCampos()) {
+		alert("El/los campos no pueden estar vacios");
+	} else if (validarEdad()) {
+		alert("Debe ser mayor de edad");
+	} else if (cantPersonasPorPais()) {
+		alert(`Solo es posible tener ${cantPers} personas para ${paisInput.value}`);
+	} else {
+		const registroDeEvento = {
+			nombre: nombreInput.value,
+			apellido: apellidoInput.value,
+			edad: edadInput.value,
+			evento: eventoInput.value,
+			pais: paisInput.value,
+			personas: cantPersonasInput.value,
+		};
+		let registroDeEventos = JSON.parse(localStorage.getItem("registroDeEventos")) || [];
+		registroDeEventos.push(registroDeEvento);
+		localStorage.setItem("registroDeEventos", JSON.stringify(registroDeEventos));
+		// const nombre = nombreInput.value;
+		// let nombres = JSON.parse(localStorage.getItem('nombres')) || [];
+		// nombres.push(nombre);
+		// localStorage.setItem('nombres', JSON.stringify(nombres));
+		console.log(registroDeEventos);
+		alert("Registro de evento exitoso");
+		formulario.reset();
+	}
+});
 
 const validarCampos = () => {
-    if (nombreInput.value.length === 0 | apellidoInput.value.length === 0 | edadInput.value.length === 0 | nombreEvento.value.length === 0
-        | cantPersonasInput.value.length === 0){
-        return true;
-    }
-    // else if (edadInput.value < 18){
-    //     return alert("Debe ser mayor de edad")
-    // }
-}
+	if (
+		(nombreInput.value.length === 0) |
+		(apellidoInput.value.length === 0) |
+		(edadInput.value.length === 0) |
+		(nombreEvento.value.length === 0) |
+		(cantPersonasInput.value.length === 0)
+	) {
+		return true;
+	}
+	// else if (edadInput.value < 18){
+	//     return alert("Debe ser mayor de edad")
+	// }
+};
 
 const validarEdad = () => {
-    if (edadInput.value < 18){
-        return true;
-    }
-}
+	if (edadInput.value < 18) {
+		return true;
+	}
+};
 
 const cantPersonasPorPais = () => {
-    let paisValue = paisInput.value;
-    let cantPersonasValue = cantPersonasInput.value;
-    switch (paisValue){
-        case 'Argentina':
-            if(cantPersonasValue > 50){
-                cantPers = 50;
-                return true;
-            }
-            break;
-        case 'Chile':
-            if(cantPersonasValue > 60){
-                cantPers = 60;
-                return true;
-            }
-            break;
-        case 'Uruguay':
-            if(cantPersonasValue > 70){
-                cantPers = 70;
-                return true;
-            }
-            break;
-    }
-}
+	let paisValue = paisInput.value;
+	let cantPersonasValue = cantPersonasInput.value;
+	switch (paisValue) {
+		case "Argentina":
+			if (cantPersonasValue > 50) {
+				cantPers = 50;
+				return true;
+			}
+			break;
+		case "Chile":
+			if (cantPersonasValue > 60) {
+				cantPers = 60;
+				return true;
+			}
+			break;
+		case "Uruguay":
+			if (cantPersonasValue > 70) {
+				cantPers = 70;
+				return true;
+			}
+			break;
+	}
+};
